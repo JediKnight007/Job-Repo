@@ -1,0 +1,143 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/avinash_a_patel/Desktop/Econometrics/GrowthLog.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}29 Oct 2024, 14:03:10
+
+{com}. use "Growth copy.dta", clear
+
+. drop if country_name == "Malta"
+{txt}(1 observation deleted)
+
+{com}. summarize growth tradeshare yearsschool oil rev_coups assassinations rgdp60
+{err}variable {bf}assassinations{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}. summarize growth tradeshare yearsschool oil rev_coups assasinations rgdp60
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 6}growth {c |}{res}         64     1.86912    1.816189  -2.811944   7.156855
+{txt}{space 2}tradeshare {c |}{res}         64    .5423919    .2283326    .140502   1.127937
+{txt}{space 1}yearsschool {c |}{res}         64    3.959219    2.553465         .2      10.07
+{txt}{space 9}oil {c |}{res}         64           0           0          0          0
+{txt}{space 3}rev_coups {c |}{res}         64    .1700666    .2254557          0   .9703704
+{txt}{hline 13}{c +}{hline 57}
+assasinati~s {c |}{res}         64     .281901     .494159          0   2.466667
+{txt}{space 6}rgdp60 {c |}{res}         64    3130.813    2522.979   366.9999   9895.004
+
+{com}. estpost summarize growth tradeshare yearsschool oil rev_coups assasinations rgdp60, detail
+{err}command {bf}estpost{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}. regress growth tradeshare yearsschool oil rev_coups assasinations rgdp60, robust
+{txt}{p 0 6 2}note: {bf:oil} omitted because of collinearity.{p_end}
+
+Linear regression                               Number of obs     = {res}        64
+                                                {txt}F(5, 58)          =  {res}     7.00
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.2911
+                                                {txt}Root MSE          =    {res} 1.5937
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 15}{c |}{col 27}    Robust
+{col 1}       growth{col 15}{c |} Coefficient{col 27}  std. err.{col 39}      t{col 47}   P>|t|{col 55}     [95% con{col 68}f. interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 3}tradeshare {c |}{col 15}{res}{space 2} 1.340819{col 27}{space 2} .8819886{col 38}{space 1}    1.52{col 47}{space 3}0.134{col 55}{space 4}-.4246728{col 68}{space 3} 3.106311
+{txt}{space 2}yearsschool {c |}{col 15}{res}{space 2} .5642445{col 27}{space 2} .1294907{col 38}{space 1}    4.36{col 47}{space 3}0.000{col 55}{space 4} .3050408{col 68}{space 3} .8234482
+{txt}{space 10}oil {c |}{col 15}{res}{space 2}        0{col 27}{txt}  (omitted)
+{space 4}rev_coups {c |}{col 15}{res}{space 2}-2.150426{col 27}{space 2}  .874601{col 38}{space 1}   -2.46{col 47}{space 3}0.017{col 55}{space 4} -3.90113{col 68}{space 3}-.3997214
+{txt}assasinations {c |}{col 15}{res}{space 2} .3225844{col 27}{space 2} .3803478{col 38}{space 1}    0.85{col 47}{space 3}0.400{col 55}{space 4}-.4387644{col 68}{space 3} 1.083933
+{txt}{space 7}rgdp60 {c |}{col 15}{res}{space 2}-.0004613{col 27}{space 2} .0001215{col 38}{space 1}   -3.80{col 47}{space 3}0.000{col 55}{space 4}-.0007045{col 68}{space 3}-.0002181
+{txt}{space 8}_cons {c |}{col 15}{res}{space 2} .6268915{col 27}{space 2} .8690927{col 38}{space 1}    0.72{col 47}{space 3}0.474{col 55}{space 4}-1.112787{col 68}{space 3}  2.36657
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. di "Coefficient on rev_coups: " _b[rev_coups]
+{res}Coefficient on rev_coups: -2.1504256
+
+{com}. margins, at(tradeshare = (mean) yearsschool = (mean) rev_coups = (mean) assasinations = (mean) rgdp60 = (mean))
+{err}invalid {bf:at()} option;
+invalid numlist
+{txt}{search r(121), local:r(121);}
+
+{com}. summarize tradeshare
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 2}tradeshare {c |}{res}         64    .5423919    .2283326    .140502   1.127937
+
+{com}. local trade_mean = r(mean)
+
+. 
+. summarize yearsschool
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 1}yearsschool {c |}{res}         64    3.959219    2.553465         .2      10.07
+
+{com}. local years_school_mean = r(mean)
+
+. 
+. summarize rev_coups
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 3}rev_coups {c |}{res}         64    .1700666    .2254557          0   .9703704
+
+{com}. local rev_coups_mean = r(mean)
+
+. 
+. summarize assasinations
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+assasinati~s {c |}{res}         64     .281901     .494159          0   2.466667
+
+{com}. local assasinations_mean = r(mean)
+
+. 
+. summarize rgdp60
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 6}rgdp60 {c |}{res}         64    3130.813    2522.979   366.9999   9895.004
+
+{com}. local rgdp60_mean = r(mean)
+
+. 
+. * Now use these stored means in the margins command
+
+. margins, at(tradeshare = `trade_mean' ///
+{err}) required
+{txt}{search r(100), local:r(100);}
+
+{com}.             yearsschool = `years_school_mean' ///
+{err}command {bf}yearsschool{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}.             rev_coups = `rev_coups_mean' ///
+{err}command {bf}rev_coups{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}.             assasinations = `assassinations_mean' ///
+{err}command {bf}assasinations{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}.             rgdp60 = `rgdp60_mean')
+{err}command {bf}rgdp60{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}. margins, at(tradeshare = (mean) yearsschool = (mean) rev_coups = (mean) assasinations = (mean) rgdp60 = (mean))
+{err}invalid {bf:at()} option;
+invalid numlist
+{txt}{search r(121), local:r(121);}
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/avinash_a_patel/Desktop/Econometrics/GrowthLog.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}30 Oct 2024, 14:01:58
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

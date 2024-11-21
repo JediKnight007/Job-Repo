@@ -1,0 +1,299 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/avinash_a_patel/Desktop/Econometrics/CPS.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}13 Nov 2024, 14:04:01
+
+{com}. use "/Users/avinash_a_patel/Downloads/CPS2015.dta"
+
+. regress Ahe Age female bachelor
+{err}variable {bf}Ahe{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}. 
+. regress ahe Age female bachelor, robust
+{err}variable {bf}Age{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}. regress ahe age female bachelor, robust
+
+{txt}Linear regression                               Number of obs     = {res}     7,098
+                                                {txt}F(3, 7094)        =  {res}   519.11
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.1896
+                                                {txt}Root MSE          =    {res} 10.917
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}         ahe{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}age {c |}{col 14}{res}{space 2} .5312752{col 26}{space 2} .0445561{col 37}{space 1}   11.92{col 46}{space 3}0.000{col 54}{space 4} .4439319{col 67}{space 3} .6186186
+{txt}{space 6}female {c |}{col 14}{res}{space 2}-4.143538{col 26}{space 2} .2623546{col 37}{space 1}  -15.79{col 46}{space 3}0.000{col 54}{space 4}-4.657831{col 67}{space 3}-3.629245
+{txt}{space 4}bachelor {c |}{col 14}{res}{space 2} 9.845644{col 26}{space 2} .2613015{col 37}{space 1}   37.68{col 46}{space 3}0.000{col 54}{space 4} 9.333415{col 67}{space 3} 10.35787
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}  2.04481{col 26}{space 2}  1.32418{col 37}{space 1}    1.54{col 46}{space 3}0.123{col 54}{space 4}-.5509773{col 67}{space 3} 4.640597
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. regress ln_ahe age female bachelor, robust
+{err}variable {bf}ln_ahe{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}. 
+. regress ln(ahe) age female bachelor, robust
+{err}variable {bf}ln{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}. regress log(ahe) age female bachelor, robust
+{err}variable {bf}log{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}. generate newv1 = ln(ahe)
+
+. regress newv1 age female bachelor, robust
+
+{txt}Linear regression                               Number of obs     = {res}     7,098
+                                                {txt}F(3, 7094)        =  {res}   621.46
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.2084
+                                                {txt}Root MSE          =    {res} .47744
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}       newv1{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}age {c |}{col 14}{res}{space 2} .0241912{col 26}{space 2} .0019966{col 37}{space 1}   12.12{col 46}{space 3}0.000{col 54}{space 4} .0202773{col 67}{space 3}  .028105
+{txt}{space 6}female {c |}{col 14}{res}{space 2}-.1776215{col 26}{space 2} .0115041{col 37}{space 1}  -15.44{col 46}{space 3}0.000{col 54}{space 4}-.2001731{col 67}{space 3}  -.15507
+{txt}{space 4}bachelor {c |}{col 14}{res}{space 2} .4615027{col 26}{space 2} .0114615{col 37}{space 1}   40.27{col 46}{space 3}0.000{col 54}{space 4} .4390347{col 67}{space 3} .4839706
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 2.027359{col 26}{space 2} .0600122{col 37}{space 1}   33.78{col 46}{space 3}0.000{col 54}{space 4} 1.909717{col 67}{space 3} 2.145001
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. gen ln_Age = ln(age)
+
+. regress newv1 ln_Age female bachelor, robust
+
+{txt}Linear regression                               Number of obs     = {res}     7,098
+                                                {txt}F(3, 7094)        =  {res}   622.42
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.2086
+                                                {txt}Root MSE          =    {res} .47736
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}       newv1{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}ln_Age {c |}{col 14}{res}{space 2} .7153749{col 26}{space 2} .0585696{col 37}{space 1}   12.21{col 46}{space 3}0.000{col 54}{space 4} .6005611{col 67}{space 3} .8301888
+{txt}{space 6}female {c |}{col 14}{res}{space 2}-.1775305{col 26}{space 2} .0115022{col 37}{space 1}  -15.43{col 46}{space 3}0.000{col 54}{space 4}-.2000782{col 67}{space 3}-.1549829
+{txt}{space 4}bachelor {c |}{col 14}{res}{space 2} .4615244{col 26}{space 2} .0114591{col 37}{space 1}   40.28{col 46}{space 3}0.000{col 54}{space 4} .4390611{col 67}{space 3} .4839877
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .3232533{col 26}{space 2} .1985955{col 37}{space 1}    1.63{col 46}{space 3}0.104{col 54}{space 4}-.0660531{col 67}{space 3} .7125597
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. gen Age2 = age^2
+
+. regress newv1 age Age2 female bachelor, robust
+
+{txt}Linear regression                               Number of obs     = {res}     7,098
+                                                {txt}F(4, 7093)        =  {res}   467.90
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.2090
+                                                {txt}Root MSE          =    {res} .47728
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}       newv1{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}age {c |}{col 14}{res}{space 2} .1341152{col 26}{space 2} .0456102{col 37}{space 1}    2.94{col 46}{space 3}0.003{col 54}{space 4} .0447055{col 67}{space 3} .2235248
+{txt}{space 8}Age2 {c |}{col 14}{res}{space 2}-.0018603{col 26}{space 2} .0007713{col 37}{space 1}   -2.41{col 46}{space 3}0.016{col 54}{space 4}-.0033723{col 67}{space 3}-.0003483
+{txt}{space 6}female {c |}{col 14}{res}{space 2}-.1773644{col 26}{space 2} .0114993{col 37}{space 1}  -15.42{col 46}{space 3}0.000{col 54}{space 4}-.1999064{col 67}{space 3}-.1548224
+{txt}{space 4}bachelor {c |}{col 14}{res}{space 2} .4616293{col 26}{space 2} .0114557{col 37}{space 1}   40.30{col 46}{space 3}0.000{col 54}{space 4} .4391727{col 67}{space 3} .4840859
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .4187449{col 26}{space 2} .6695754{col 37}{space 1}    0.63{col 46}{space 3}0.532{col 54}{space 4}-.8938228{col 67}{space 3} 1.731312
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. predict yhat_b, xb if e(sample) // From model (b)
+{err}option e() not allowed after robust estimation
+{txt}{search r(198), local:r(198);}
+
+{com}. predict yhat_c, xb if e(sample) // From model (c)
+{err}option e() not allowed after robust estimation
+{txt}{search r(198), local:r(198);}
+
+{com}. predict yhat_d, xb if e(sample) // From model (d)
+{err}option e() not allowed after robust estimation
+{txt}{search r(198), local:r(198);}
+
+{com}. 
+. twoway (line yhat_b age if female==0 & bachelor==0, sort) ///
+{err}variable {bf}yhat_b{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}.        (line yhat_c age if female==0 & bachelor==0, sort) ///
+{bf}{err}({sf} is not a valid command name
+{txt}{search r(199), local:r(199);}
+
+{com}.        (line yhat_d age if female==0 & bachelor==0, sort), ///
+{bf}{err}({sf} is not a valid command name
+{txt}{search r(199), local:r(199);}
+
+{com}.        title("Regression relation between Age and ln(AHE)") ///
+{err}command {bf}title{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}.        legend(order(1 "Model (b)" 2 "Model (c)" 3 "Model (d)"))
+{err}command {bf}legend{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}. predict yhat_b, xb if e(sample)
+{err}option e() not allowed after robust estimation
+{txt}{search r(198), local:r(198);}
+
+{com}. predict yhat_b if e(sample)
+{txt}(option {bf:xb} assumed; fitted values)
+
+{com}. predict yhat_c if e(sample)
+{txt}(option {bf:xb} assumed; fitted values)
+
+{com}. predict yhat_d if e(sample)
+{txt}(option {bf:xb} assumed; fitted values)
+
+{com}. twoway (line yhat_b age if female==0 & bachelor==0, sort lcolor(blue) lwidth(medium))
+{res}
+{com}.        (line yhat_c age if female==0 & bachelor==0, sort lcolor(red) lwidth(medium))
+{bf}{err}({sf} is not a valid command name
+{txt}{search r(199), local:r(199);}
+
+{com}.        (line yhat_d age if female==0 & bachelor==0, sort lcolor(green) lwidth(medium)),
+{bf}{err}({sf} is not a valid command name
+{txt}{search r(199), local:r(199);}
+
+{com}.        title("Regression Relation between Age and ln(AHE)") ///
+{err}command {bf}title{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}.        ytitle("Predicted ln(AHE)") xtitle("Age") ///
+{err}command {bf}ytitle{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}.        legend(order(1 "Model (b)" 2 "Model (c)" 3 "Model (d)"))
+{err}command {bf}legend{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}. twoway (line yhat_c age if female==0 & bachelor==0, sort lcolor(blue) lwidth(medium))
+{res}
+{com}. twoway (line yhat_d age if female==0 & bachelor==0, sort lcolor(blue) lwidth(medium))
+{res}
+{com}. gen FemaleBachelor = female * fachelor
+{err}fachelor not found
+{txt}{search r(111), local:r(111);}
+
+{com}. regress newv1 age Age2 female bachelor FemaleBachelor
+{err}variable {bf}FemaleBachelor{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}. gen FemaleBachelor = female * bachelor
+
+. regress newv1 age Age2 female bachelor FemaleBachelor, robust
+
+{txt}Linear regression                               Number of obs     = {res}     7,098
+                                                {txt}F(5, 7092)        =  {res}   381.57
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.2091
+                                                {txt}Root MSE          =    {res} .47728
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1}         newv1{col 16}{c |} Coefficient{col 28}  std. err.{col 40}      t{col 48}   P>|t|{col 56}     [95% con{col 69}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 11}age {c |}{col 16}{res}{space 2} .1348145{col 28}{space 2} .0455975{col 39}{space 1}    2.96{col 48}{space 3}0.003{col 56}{space 4} .0454299{col 69}{space 3} .2241992
+{txt}{space 10}Age2 {c |}{col 16}{res}{space 2} -.001871{col 28}{space 2} .0007711{col 39}{space 1}   -2.43{col 48}{space 3}0.015{col 56}{space 4}-.0033825{col 69}{space 3}-.0003594
+{txt}{space 8}female {c |}{col 16}{res}{space 2}-.1903241{col 28}{space 2}  .016132{col 39}{space 1}  -11.80{col 48}{space 3}0.000{col 56}{space 4}-.2219476{col 69}{space 3}-.1587007
+{txt}{space 6}bachelor {c |}{col 16}{res}{space 2} .4521137{col 28}{space 2} .0155132{col 39}{space 1}   29.14{col 48}{space 3}0.000{col 56}{space 4} .4217031{col 69}{space 3} .4825242
+{txt}FemaleBachelor {c |}{col 16}{res}{space 2} .0234742{col 28}{space 2} .0228761{col 39}{space 1}    1.03{col 48}{space 3}0.305{col 56}{space 4}-.0213699{col 69}{space 3} .0683182
+{txt}{space 9}_cons {c |}{col 16}{res}{space 2} .4119039{col 28}{space 2} .6693631{col 39}{space 1}    0.62{col 48}{space 3}0.538{col 56}{space 4}-.9002477{col 69}{space 3} 1.724055
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. predict newv1_hat, xb
+
+. display "Predicted ln(AHE) for Alexis" newv1_hat[1]
+{res}Predicted ln(AHE) for Alexis2.6522961
+
+{com}. display "Predicted ln(AHE) for Alexis" newv1_hat[2]
+{res}Predicted ln(AHE) for Alexis2.6329567
+
+{com}. display "Predicted ln(AHE) for Alexis" newv1_hat[3]
+{res}Predicted ln(AHE) for Alexis2.793138
+
+{com}. display "Predicted ln(AHE) for Alexis" newv1_hat[4]
+{res}Predicted ln(AHE) for Alexis2.8100805
+
+{com}. gen AgeFemale = age * female
+
+. regress newv1 age AgeFemale female bachelor
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}     7,098
+{txt}{hline 13}{c +}{hline 34}   F(4, 7093)      = {res}   468.30
+{txt}       Model {c |} {res} 426.753815         4  106.688454   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 1615.94743     7,093  .227822843   {txt}R-squared       ={res}    0.2089
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.2085
+{txt}       Total {c |} {res} 2042.70124     7,097  .287826017   {txt}Root MSE        =   {res} .47731
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}       newv1{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}age {c |}{col 14}{res}{space 2} .0279191{col 26}{space 2} .0025927{col 37}{space 1}   10.77{col 46}{space 3}0.000{col 54}{space 4} .0228366{col 67}{space 3} .0330016
+{txt}{space 3}AgeFemale {c |}{col 14}{res}{space 2}-.0088325{col 26}{space 2} .0039922{col 37}{space 1}   -2.21{col 46}{space 3}0.027{col 54}{space 4}-.0166583{col 67}{space 3}-.0010066
+{txt}{space 6}female {c |}{col 14}{res}{space 2} .0839537{col 26}{space 2} .1187997{col 37}{space 1}    0.71{col 46}{space 3}0.480{col 54}{space 4} -.148929{col 67}{space 3} .3168365
+{txt}{space 4}bachelor {c |}{col 14}{res}{space 2} .4606416{col 26}{space 2} .0114802{col 37}{space 1}   40.12{col 46}{space 3}0.000{col 54}{space 4} .4381369{col 67}{space 3} .4831463
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 1.917009{col 26}{space 2} .0774323{col 37}{space 1}   24.76{col 46}{space 3}0.000{col 54}{space 4} 1.765218{col 67}{space 3} 2.068799
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. regress newv1 age AgeFemale female bachelor, robust
+
+{txt}Linear regression                               Number of obs     = {res}     7,098
+                                                {txt}F(4, 7093)        =  {res}   467.31
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.2089
+                                                {txt}Root MSE          =    {res} .47731
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}       newv1{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}age {c |}{col 14}{res}{space 2} .0279191{col 26}{space 2} .0027276{col 37}{space 1}   10.24{col 46}{space 3}0.000{col 54}{space 4} .0225721{col 67}{space 3}  .033266
+{txt}{space 3}AgeFemale {c |}{col 14}{res}{space 2}-.0088325{col 26}{space 2}  .003988{col 37}{space 1}   -2.21{col 46}{space 3}0.027{col 54}{space 4}  -.01665{col 67}{space 3}-.0010149
+{txt}{space 6}female {c |}{col 14}{res}{space 2} .0839537{col 26}{space 2} .1187222{col 37}{space 1}    0.71{col 46}{space 3}0.479{col 54}{space 4}-.1487772{col 67}{space 3} .3166846
+{txt}{space 4}bachelor {c |}{col 14}{res}{space 2} .4606416{col 26}{space 2}  .011473{col 37}{space 1}   40.15{col 46}{space 3}0.000{col 54}{space 4}  .438151{col 67}{space 3} .4831322
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 1.917009{col 26}{space 2} .0813832{col 37}{space 1}   23.56{col 46}{space 3}0.000{col 54}{space 4} 1.757473{col 67}{space 3} 2.076544
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. gen AgeBachelor = age * bachelor
+
+. regress lnewv1 age AgeBachelor female bachelor, robust
+{err}variable {bf}lnewv1{sf} not found
+{txt}{search r(111), local:r(111);}
+
+{com}. regress newv1 age AgeBachelor female bachelor, robust
+
+{txt}Linear regression                               Number of obs     = {res}     7,098
+                                                {txt}F(4, 7093)        =  {res}   466.26
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.2086
+                                                {txt}Root MSE          =    {res} .47742
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1}       newv1{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}age {c |}{col 14}{res}{space 2} .0215176{col 26}{space 2} .0027904{col 37}{space 1}    7.71{col 46}{space 3}0.000{col 54}{space 4} .0160477{col 67}{space 3} .0269876
+{txt}{space 1}AgeBachelor {c |}{col 14}{res}{space 2}  .005063{col 26}{space 2} .0039844{col 37}{space 1}    1.27{col 46}{space 3}0.204{col 54}{space 4}-.0027476{col 67}{space 3} .0128735
+{txt}{space 6}female {c |}{col 14}{res}{space 2}-.1770936{col 26}{space 2} .0115193{col 37}{space 1}  -15.37{col 46}{space 3}0.000{col 54}{space 4}-.1996748{col 67}{space 3}-.1545124
+{txt}{space 4}bachelor {c |}{col 14}{res}{space 2} .3114054{col 26}{space 2} .1187083{col 37}{space 1}    2.62{col 46}{space 3}0.009{col 54}{space 4} .0787017{col 67}{space 3} .5441092
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 2.106406{col 26}{space 2} .0831078{col 37}{space 1}   25.35{col 46}{space 3}0.000{col 54}{space 4}  1.94349{col 67}{space 3} 2.269322
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/avinash_a_patel/Desktop/Econometrics/CPS.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}13 Nov 2024, 14:20:37
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

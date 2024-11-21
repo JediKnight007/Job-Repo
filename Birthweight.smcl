@@ -1,0 +1,285 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/avinash_a_patel/Desktop/Econometrics/Birthweight.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 6 Nov 2024, 10:22:39
+
+{com}. use "/Users/avinash_a_patel/Desktop/Econometrics/birthweight_smoking copy.dta"
+
+. regress birthweight smoker
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}     3,000
+{txt}{hline 13}{c +}{hline 34}   F(1, 2998)      = {res}    88.28
+{txt}       Model {c |} {res}   30080336         1    30080336   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 1.0215e+09     2,998  340740.383   {txt}R-squared       ={res}    0.0286
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0283
+{txt}       Total {c |} {res} 1.0516e+09     2,999  350656.887   {txt}Root MSE        =   {res} 583.73
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1} birthweight{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}smoker {c |}{col 14}{res}{space 2}-253.2284{col 26}{space 2} 26.95149{col 37}{space 1}   -9.40{col 46}{space 3}0.000{col 54}{space 4}-306.0736{col 67}{space 3}-200.3831
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}  3432.06{col 26}{space 2}  11.8709{col 37}{space 1}  289.12{col 46}{space 3}0.000{col 54}{space 4} 3408.784{col 67}{space 3} 3455.336
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. regress birthweight smoker, robust
+
+{txt}Linear regression                               Number of obs     = {res}     3,000
+                                                {txt}F(1, 2998)        =  {res}    89.21
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.0286
+                                                {txt}Root MSE          =    {res} 583.73
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1} birthweight{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}smoker {c |}{col 14}{res}{space 2}-253.2284{col 26}{space 2} 26.81039{col 37}{space 1}   -9.45{col 46}{space 3}0.000{col 54}{space 4} -305.797{col 67}{space 3}-200.6597
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}  3432.06{col 26}{space 2} 11.89053{col 37}{space 1}  288.64{col 46}{space 3}0.000{col 54}{space 4} 3408.746{col 67}{space 3} 3455.374
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. regress birthweight smoker alcohol nprevist, robust
+
+{txt}Linear regression                               Number of obs     = {res}     3,000
+                                                {txt}F(3, 2996)        =  {res}    59.48
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.0729
+                                                {txt}Root MSE          =    {res} 570.47
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1} birthweight{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}smoker {c |}{col 14}{res}{space 2}-217.5801{col 26}{space 2} 26.10764{col 37}{space 1}   -8.33{col 46}{space 3}0.000{col 54}{space 4}-268.7708{col 67}{space 3}-166.3894
+{txt}{space 5}alcohol {c |}{col 14}{res}{space 2}-30.49129{col 26}{space 2} 72.59671{col 37}{space 1}   -0.42{col 46}{space 3}0.675{col 54}{space 4}-172.8357{col 67}{space 3} 111.8531
+{txt}{space 4}nprevist {c |}{col 14}{res}{space 2} 34.06991{col 26}{space 2} 3.608326{col 37}{space 1}    9.44{col 46}{space 3}0.000{col 54}{space 4} 26.99487{col 67}{space 3} 41.14496
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 3051.249{col 26}{space 2} 43.71445{col 37}{space 1}   69.80{col 46}{space 3}0.000{col 54}{space 4} 2965.535{col 67}{space 3} 3136.962
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. regress birthweight smoker alcohol nprevist unmarried, robust
+
+{txt}Linear regression                               Number of obs     = {res}     3,000
+                                                {txt}F(4, 2995)        =  {res}    56.09
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.0886
+                                                {txt}Root MSE          =    {res}  565.7
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1} birthweight{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}smoker {c |}{col 14}{res}{space 2}-175.3769{col 26}{space 2}  26.8268{col 37}{space 1}   -6.54{col 46}{space 3}0.000{col 54}{space 4}-227.9777{col 67}{space 3}-122.7761
+{txt}{space 5}alcohol {c |}{col 14}{res}{space 2}-21.08347{col 26}{space 2} 72.99211{col 37}{space 1}   -0.29{col 46}{space 3}0.773{col 54}{space 4}-164.2032{col 67}{space 3} 122.0363
+{txt}{space 4}nprevist {c |}{col 14}{res}{space 2} 29.60254{col 26}{space 2} 3.582739{col 37}{space 1}    8.26{col 46}{space 3}0.000{col 54}{space 4} 22.57766{col 67}{space 3} 36.62742
+{txt}{space 3}unmarried {c |}{col 14}{res}{space 2}-187.1332{col 26}{space 2} 27.67715{col 37}{space 1}   -6.76{col 46}{space 3}0.000{col 54}{space 4}-241.4014{col 67}{space 3}-132.8651
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}   3134.4{col 26}{space 2} 44.14857{col 37}{space 1}   71.00{col 46}{space 3}0.000{col 54}{space 4} 3047.835{col 67}{space 3} 3220.965
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. // Model 1: Birthweight on Smoker
+{bf}{err}/{sf} is not a valid command name
+{txt}{search r(199), local:r(199);}
+
+{com}. regress birthweight smoker, robust
+
+{txt}Linear regression                               Number of obs     = {res}     3,000
+                                                {txt}F(1, 2998)        =  {res}    89.21
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.0286
+                                                {txt}Root MSE          =    {res} 583.73
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1} birthweight{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}smoker {c |}{col 14}{res}{space 2}-253.2284{col 26}{space 2} 26.81039{col 37}{space 1}   -9.45{col 46}{space 3}0.000{col 54}{space 4} -305.797{col 67}{space 3}-200.6597
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}  3432.06{col 26}{space 2} 11.89053{col 37}{space 1}  288.64{col 46}{space 3}0.000{col 54}{space 4} 3408.746{col 67}{space 3} 3455.374
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. estimates store Model1
+
+. 
+. // Model 2: Birthweight on Smoker and Alcohol
+{bf}{err}/{sf} is not a valid command name
+{txt}{search r(199), local:r(199);}
+
+{com}. regress birthweight smoker alcohol, robust
+
+{txt}Linear regression                               Number of obs     = {res}     3,000
+                                                {txt}F(2, 2997)        =  {res}    44.75
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.0288
+                                                {txt}Root MSE          =    {res} 583.77
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1} birthweight{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}smoker {c |}{col 14}{res}{space 2}-250.8034{col 26}{space 2} 26.86935{col 37}{space 1}   -9.33{col 46}{space 3}0.000{col 54}{space 4}-303.4877{col 67}{space 3}-198.1192
+{txt}{space 5}alcohol {c |}{col 14}{res}{space 2}-57.60132{col 26}{space 2} 77.38742{col 37}{space 1}   -0.74{col 46}{space 3}0.457{col 54}{space 4}-209.3392{col 67}{space 3} 94.13651
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 3432.703{col 26}{space 2} 11.93957{col 37}{space 1}  287.51{col 46}{space 3}0.000{col 54}{space 4} 3409.293{col 67}{space 3} 3456.114
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. estimates store Model2
+
+. 
+. // Model 3: Birthweight on Smoker, Alcohol, and Nprevist
+{bf}{err}/{sf} is not a valid command name
+{txt}{search r(199), local:r(199);}
+
+{com}. regress birthweight smoker alcohol nprevist, robust
+
+{txt}Linear regression                               Number of obs     = {res}     3,000
+                                                {txt}F(3, 2996)        =  {res}    59.48
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.0729
+                                                {txt}Root MSE          =    {res} 570.47
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1} birthweight{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}smoker {c |}{col 14}{res}{space 2}-217.5801{col 26}{space 2} 26.10764{col 37}{space 1}   -8.33{col 46}{space 3}0.000{col 54}{space 4}-268.7708{col 67}{space 3}-166.3894
+{txt}{space 5}alcohol {c |}{col 14}{res}{space 2}-30.49129{col 26}{space 2} 72.59671{col 37}{space 1}   -0.42{col 46}{space 3}0.675{col 54}{space 4}-172.8357{col 67}{space 3} 111.8531
+{txt}{space 4}nprevist {c |}{col 14}{res}{space 2} 34.06991{col 26}{space 2} 3.608326{col 37}{space 1}    9.44{col 46}{space 3}0.000{col 54}{space 4} 26.99487{col 67}{space 3} 41.14496
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 3051.249{col 26}{space 2} 43.71445{col 37}{space 1}   69.80{col 46}{space 3}0.000{col 54}{space 4} 2965.535{col 67}{space 3} 3136.962
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. estimates store Model3
+
+. 
+. // Model 4: Birthweight on Smoker, Alcohol, Nprevist, and Unmarried
+{bf}{err}/{sf} is not a valid command name
+{txt}{search r(199), local:r(199);}
+
+{com}. regress birthweight smoker alcohol nprevist unmarried, robust
+
+{txt}Linear regression                               Number of obs     = {res}     3,000
+                                                {txt}F(4, 2995)        =  {res}    56.09
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.0886
+                                                {txt}Root MSE          =    {res}  565.7
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}    Robust
+{col 1} birthweight{col 14}{c |} Coefficient{col 26}  std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}smoker {c |}{col 14}{res}{space 2}-175.3769{col 26}{space 2}  26.8268{col 37}{space 1}   -6.54{col 46}{space 3}0.000{col 54}{space 4}-227.9777{col 67}{space 3}-122.7761
+{txt}{space 5}alcohol {c |}{col 14}{res}{space 2}-21.08347{col 26}{space 2} 72.99211{col 37}{space 1}   -0.29{col 46}{space 3}0.773{col 54}{space 4}-164.2032{col 67}{space 3} 122.0363
+{txt}{space 4}nprevist {c |}{col 14}{res}{space 2} 29.60254{col 26}{space 2} 3.582739{col 37}{space 1}    8.26{col 46}{space 3}0.000{col 54}{space 4} 22.57766{col 67}{space 3} 36.62742
+{txt}{space 3}unmarried {c |}{col 14}{res}{space 2}-187.1332{col 26}{space 2} 27.67715{col 37}{space 1}   -6.76{col 46}{space 3}0.000{col 54}{space 4}-241.4014{col 67}{space 3}-132.8651
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}   3134.4{col 26}{space 2} 44.14857{col 37}{space 1}   71.00{col 46}{space 3}0.000{col 54}{space 4} 3047.835{col 67}{space 3} 3220.965
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. estimates store Model4
+
+. ssc install estout
+{txt}checking {hilite:estout} consistency and verifying not already installed...
+installing into /Users/avinash_a_patel/Library/Application Support/Stata/ado/plus/...
+installation complete.
+
+{com}. ssc install outreg2
+{txt}checking {hilite:outreg2} consistency and verifying not already installed...
+installing into /Users/avinash_a_patel/Library/Application Support/Stata/ado/plus/...
+installation complete.
+
+{com}. estout Model1 Model2 Model3 Model4, cells(b(star fmt(3)) ci) stats(r2 N) varwidth(25) label
+{res}
+{txt}{hline 89}
+{txt}                                Model1          Model2          Model3          Model4   
+{txt}                                b/ci95          b/ci95          b/ci95          b/ci95   
+{txt}{hline 89}
+{txt}smoker                   {res}     -253.228***     -250.803***     -217.580***     -175.377***{txt}
+                         {res} -305.797,-200.660    -303.488,-198.119    -268.771,-166.389    -227.978,-122.776   {txt}
+{txt}alcohol                  {res}                      -57.601         -30.491         -21.083   {txt}
+                         {res}                 -209.339,94.137    -172.836,111.853    -164.203,122.036   {txt}
+{txt}nprevist                 {res}                                       34.070***       29.603***{txt}
+                         {res}                                 26.995,41.145    22.578,36.627   {txt}
+{txt}unmarried                {res}                                                     -187.133***{txt}
+                         {res}                                                 -241.401,-132.865   {txt}
+{txt}_cons                    {res}     3432.060***     3432.703***     3051.249***     3134.400***{txt}
+                         {res} 3408.746,3455.374    3409.293,3456.114    2965.535,3136.962    3047.835,3220.965   {txt}
+{txt}{hline 89}
+{txt}r2                       {res}        0.029           0.029           0.073           0.089   {txt}
+{txt}N                        {res}     3000.000        3000.000        3000.000        3000.000   {txt}
+{txt}{hline 89}
+
+{com}. estout Model1 Model2 Model3 Model4 using "regression_table.txt", replace ///
+{err}option {bf:/} not allowed
+{txt}{search r(198), local:r(198);}
+
+{com}.     cells(b(star fmt(3)) ci) stats(r2 N) varwidth(25) label
+{err}command {bf}cells{sf} is unrecognized
+{txt}{search r(199), local:r(199);}
+
+{com}. estout Model1 Model2 Model3 Model4, cells(b(star fmt(3)) ci) stats(r2 N) varwidth(25) label
+{res}
+{txt}{hline 89}
+{txt}                                Model1          Model2          Model3          Model4   
+{txt}                                b/ci95          b/ci95          b/ci95          b/ci95   
+{txt}{hline 89}
+{txt}smoker                   {res}     -253.228***     -250.803***     -217.580***     -175.377***{txt}
+                         {res} -305.797,-200.660    -303.488,-198.119    -268.771,-166.389    -227.978,-122.776   {txt}
+{txt}alcohol                  {res}                      -57.601         -30.491         -21.083   {txt}
+                         {res}                 -209.339,94.137    -172.836,111.853    -164.203,122.036   {txt}
+{txt}nprevist                 {res}                                       34.070***       29.603***{txt}
+                         {res}                                 26.995,41.145    22.578,36.627   {txt}
+{txt}unmarried                {res}                                                     -187.133***{txt}
+                         {res}                                                 -241.401,-132.865   {txt}
+{txt}_cons                    {res}     3432.060***     3432.703***     3051.249***     3134.400***{txt}
+                         {res} 3408.746,3455.374    3409.293,3456.114    2965.535,3136.962    3047.835,3220.965   {txt}
+{txt}{hline 89}
+{txt}r2                       {res}        0.029           0.029           0.073           0.089   {txt}
+{txt}N                        {res}     3000.000        3000.000        3000.000        3000.000   {txt}
+{txt}{hline 89}
+
+{com}. estout Model1 Model2 Model3 Model4, cells(b(star fmt(3)) ci) stats(r2 N) varwidth(25) label
+{res}
+{txt}{hline 89}
+{txt}                                Model1          Model2          Model3          Model4   
+{txt}                                b/ci95          b/ci95          b/ci95          b/ci95   
+{txt}{hline 89}
+{txt}smoker                   {res}     -253.228***     -250.803***     -217.580***     -175.377***{txt}
+                         {res} -305.797,-200.660    -303.488,-198.119    -268.771,-166.389    -227.978,-122.776   {txt}
+{txt}alcohol                  {res}                      -57.601         -30.491         -21.083   {txt}
+                         {res}                 -209.339,94.137    -172.836,111.853    -164.203,122.036   {txt}
+{txt}nprevist                 {res}                                       34.070***       29.603***{txt}
+                         {res}                                 26.995,41.145    22.578,36.627   {txt}
+{txt}unmarried                {res}                                                     -187.133***{txt}
+                         {res}                                                 -241.401,-132.865   {txt}
+{txt}_cons                    {res}     3432.060***     3432.703***     3051.249***     3134.400***{txt}
+                         {res} 3408.746,3455.374    3409.293,3456.114    2965.535,3136.962    3047.835,3220.965   {txt}
+{txt}{hline 89}
+{txt}r2                       {res}        0.029           0.029           0.073           0.089   {txt}
+{txt}N                        {res}     3000.000        3000.000        3000.000        3000.000   {txt}
+{txt}{hline 89}
+
+{com}. estout Model1 Model2 Model3 Model4, cells(b(star fmt(3)) ci) stats(r2 N) varwidth(25) label
+{res}
+{txt}{hline 89}
+{txt}                                Model1          Model2          Model3          Model4   
+{txt}                                b/ci95          b/ci95          b/ci95          b/ci95   
+{txt}{hline 89}
+{txt}smoker                   {res}     -253.228***     -250.803***     -217.580***     -175.377***{txt}
+                         {res} -305.797,-200.660    -303.488,-198.119    -268.771,-166.389    -227.978,-122.776   {txt}
+{txt}alcohol                  {res}                      -57.601         -30.491         -21.083   {txt}
+                         {res}                 -209.339,94.137    -172.836,111.853    -164.203,122.036   {txt}
+{txt}nprevist                 {res}                                       34.070***       29.603***{txt}
+                         {res}                                 26.995,41.145    22.578,36.627   {txt}
+{txt}unmarried                {res}                                                     -187.133***{txt}
+                         {res}                                                 -241.401,-132.865   {txt}
+{txt}_cons                    {res}     3432.060***     3432.703***     3051.249***     3134.400***{txt}
+                         {res} 3408.746,3455.374    3409.293,3456.114    2965.535,3136.962    3047.835,3220.965   {txt}
+{txt}{hline 89}
+{txt}r2                       {res}        0.029           0.029           0.073           0.089   {txt}
+{txt}N                        {res}     3000.000        3000.000        3000.000        3000.000   {txt}
+{txt}{hline 89}
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/avinash_a_patel/Desktop/Econometrics/Birthweight.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 6 Nov 2024, 11:17:58
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
