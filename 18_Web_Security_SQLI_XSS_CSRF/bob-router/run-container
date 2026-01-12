@@ -1,0 +1,314 @@
+#!/bin/bash
+#set -x
+
+set -eu
+
+maindir=""
+container_name=bob-router
+network_name=net-cs1660
+
+image_name=cs1660-bob-rel
+image_url="ghcr.io/brown-csci1660/${image_name}"
+
+clean=false
+verbose=false
+arch="`uname -m`"
+
+# Set automatically by platform detection
+tag=
+platform=
+
+if stat --format %i / >/dev/null 2>&1; then
+    statformatarg="--format"
+else
+    statformatarg="-f"
+fi
+myfileid=`stat $statformatarg %d:%i "${BASH_SOURCE[0]}" 2>/dev/null`
+
+dir="`pwd`"
+subdir=""
+while test "$dir" != / -a "$dir" != ""; do
+    thisfileid=`stat $statformatarg %d:%i "$dir"/${BASH_SOURCE[0]} 2>/dev/null`
+    if test -n "$thisfileid" -a "$thisfileid" = "$myfileid"; then
+        maindir="$dir"
+        break
+    fi
+    subdir="/`basename "$dir"`$subdir"
+    dir="`dirname "$dir"`"
+done
+
+if test -z "$maindir" && expr "${BASH_SOURCE[0]}" : / >/dev/null 2>&1; then
+    maindir="`dirname "${BASH_SOURCE[0]}"`"
+    subdir=""
+fi
+
+if test -z "$maindir"; then
+    echo "Error: could not determine your directory."
+    exit 1
+fi
+
+
+vexec () {
+    if $verbose; then
+        echo "$@"
+    fi
+    "$@"
+}
+
+has_container() {
+    [ $( docker ps -a | grep $container_name | wc -l ) -gt 0 ]
+}
+
+remove_containers() {
+    local _name
+    _name="${1:-${container_name}}"
+    echo "Removing all existing ${container_name} containers..."
+    docker ps -a -f name="${_name}" --format "{{.ID}}" | while read line ; do docker rm --force $line ; done
+}
+
+stop_container() {
+    local _name
+    _name="${1:-${container_name}}"
+
+    docker stop "${_name}"
+}
+
+start_container() {
+    echo "Entering existing container"
+    echo "(To reset this container on startup, run with --clean)"
+    docker start -ai $container_name
+}
+
+has_network() {
+    local rv
+    rv=0
+    $(docker network inspect "${network_name}" 2>&1 > /dev/null) || rv=$?
+    if [[ $rv == 0 ]]; then
+	return 0
+    else
+	return 1
+    fi
+}
+
+create_network() {
+    if ! has_network; then
+	echo "Creating container-local network ${network_name}"
+	docker network create "${network_name}"
+    else
+	echo "Found network ${network_name}, skipping creation"
+    fi
+}
+
+get_network_info() {
+    docker network inspect "${network_name}"
+}
+
+remove_network() {
+    docker network rm "${network_name}"
+}
+
+start_new_container() {
+    vexec docker run -it \
+          --name $container_name \
+	  --network "${network_name}" --network-alias "[${container_name}]" \
+	  --add-host="router.local:127.0.0.1" \
+	  --platform $platform \
+	  --privileged --security-opt seccomp=unconfined \
+	  "${image_name}:${tag}"
+}
+
+
+
+if test -n "$maindir"; then
+    existing_image="`docker ps -f status=running -f ancestor=${image_name}:${tag} --no-trunc --format "{{.CreatedAt}},{{.ID}}" | sort -r | head -n 1`"
+    if test -n "$existing_image"; then
+        created_at="`echo $existing_image | sed 's/,.*//'`"
+        image="`echo $existing_image | sed 's/^.*,//'`"
+        image12="`echo $image | head -c 12`"
+        echo "* Using running container $image12, created $created_at" 1>&2
+        echo "- To start a new container, exit then \`$0 -f\`" 1>&2
+        echo "- To kill this container, exit then \`docker kill $image12\`" 1>&2
+        vexec docker exec -it $image /bin/bash
+    fi
+fi
+
+do_start_or_run()
+{
+    if $clean; then
+	remove_containers && start_new_container
+    elif has_container; then
+	start_container
+    else
+	start_new_container
+    fi
+
+}
+
+__check_platform()
+{
+    if test -z "$platform" -a \( "$arch" = "arm64" -o "$arch" = "aarch64" \); then
+	platform=linux/arm64
+    elif test -z "$platform"; then
+	platform=linux/amd64
+    fi
+
+    if test -z "$tag" -a "$platform" = linux/arm64; then
+	tag="arm64"
+    elif test -z "$tag"; then
+	tag="latest"
+    fi
+
+}
+
+load_image()
+{
+    local target
+    if [[ "${tag}" == "latest" ]]; then
+       target="${image_url}"
+    else
+       target="${image_url}:${tag}"
+    fi
+
+    echo "Trying to load image at ${target}"
+
+    docker pull "${target}"
+    docker tag "${target}" "${image_name}:${tag}"
+}
+
+remove_image()
+{
+    docker image rm --force "${image_name}:${tag}"
+    docker image rm --force "${image_url}:${tag}"
+}
+
+do_help()
+{
+    cat <<EOF
+Usage $0:  [--verbose] [--clean] [--debug] [--arm] [command] [command opts...]
+Top-level options:
+ --verbose  Execute docker with verbose output
+ --clean    Discard current container state when using 'start'
+ --debug    Use to show execution of this script for debugging
+ --arm      Force building for ARM64 platform (ARM64/M1 macs only)
+
+Commands:
+ setup        Download the container image (first time setup)
+                - If container image exists, runs 'clean' and updates to latest
+ start        Start the container (requires 'setup' first)
+ stop         Stop the container
+ clean        Remove container state (revert state to image built with 'setup')
+ reset        Remove container state and restart (same as 'clean+start')
+ update-image Remove container state and update image to latest version
+ clean-image  Remove all container state and the image (must 'setup' again)
+ reset-all    Same as clean-image+setup+start
+ clean-old    Discard containers generated with old versions of this script
+
+If no command is specified, the default is 'start'.
+EOF
+}
+
+main()
+{
+    if [[ $# -gt 0 ]]; then
+	# Top-level args
+	case $1 in
+	    --verbose|-v)
+		shift
+		verbose=true
+		;;
+	    --clean|-C)
+		shift
+		clean=true
+		;;
+	    --debug)
+		shift
+		set -x
+		;;
+	    -a|--arm|--arm64|--aarch64)
+		shift
+		if [[ ( "${arch}" == "arm64" ) || ( "${arch}" == "aarch64" ) ]]; then
+		    platform=linux/arm64
+		else
+		    echo "$0 --arm only works on arm64 hosts (platform is ${arch})" 1>&2
+		    exit 1
+		fi
+		;;
+	    -x|--x86-64)
+		shift
+		platform=linux/amd64
+		;;
+	    --help)
+		shift
+		do_help
+		exit 0
+	esac
+    fi
+
+    __check_platform
+
+    # Default subcommand
+    if [[ $# == 0 ]]; then
+	do_start_or_run
+	exit 0
+    fi
+
+    # Subcommands
+    case $1 in
+	help)
+	    do_help
+	    exit 0
+	    ;;
+	start|run)
+	    shift
+	    do_start_or_run $@
+	    ;;
+	stop)
+	    shift
+	    stop_container $@
+	    ;;
+	clean)
+	    shift
+	    remove_containers $@
+	    ;;
+	reset)
+	    shift
+	    remove_containers
+	    do_start_or_run $@
+	    ;;
+	setup|build-image)
+	    shift
+	    remove_containers || true
+	    load_image $@
+	    ;;
+	update-image)
+	    shift
+	    remove_containers
+	    load_image $@
+	    ;;
+	remove-image|clean-image)
+	    shift
+	    remove_containers
+	    remove_image $@
+	    ;;
+	reset-all)
+	    shift
+	    remove_containers || true
+	    remove_image || true
+	    build_image
+	    do_start_or_run $@
+	    ;;
+	clean-old)
+	    shift
+	    docker container rm --force cs1660-flag || true
+	    remove_image cs1660-flag:latest || true
+	    remove_image cs1660-flag:arm64 || true
+	    ;;
+	*)
+	    echo "Invalid command $1"
+	    do_help
+	    exit 1
+	    ;;
+    esac
+}
+
+main $@
