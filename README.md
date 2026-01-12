@@ -67,12 +67,19 @@ Job-Repo/
 │   ├── README.md
 │   └── Metropolis_Hastings_Poisson.ipynb
 │
-└── 15_Econometrics_Projects/
+├── 15_Econometrics_Projects/
+│   ├── README.md
+│   ├── Birthweight.smcl
+│   ├── CPS.smcl
+│   ├── CPS6.pdf
+│   └── GrowthLog.smcl
+│
+└── 16_Soviet_Film_Data_Scraper/
     ├── README.md
-    ├── Birthweight.smcl
-    ├── CPS.smcl
-    ├── CPS6.pdf
-    └── GrowthLog.smcl
+    ├── scripts/          # Python scraping scripts
+    ├── data/            # CSV datasets (4,652 films)
+    ├── docs/            # Technical documentation
+    └── outputs/         # Processing outputs
 ```
 
 ---
@@ -87,7 +94,7 @@ Job-Repo/
 **Data Structures** → Projects 07, 10  
 **Security & Cryptography** → Projects 08, 12  
 **Cloud Computing** → Project 13  
-**Statistics & Data Science** → Projects 14, 15  
+**Statistics & Data Science** → Projects 14, 15, 16  
 
 ### By Language
 
@@ -119,6 +126,7 @@ Job-Repo/
 | 13 | Azure Blob Client | Cloud | Python | Azure SDK, async programming |
 | 14 | MCMC Sampling | Statistics | Python | Metropolis-Hastings, convergence |
 | 15 | Econometrics Suite | Statistics | Stata | Regression, causal inference |
+| 16 | Soviet Film Scraper | Data Science | Python | Web scraping, NLP, translation |
 
 ---
 
