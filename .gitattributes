@@ -1,1 +1,2 @@
 *.csv filter=lfs diff=lfs merge=lfs -text
+16_Soviet_Film_Data_Scraper/data/*.csv filter=lfs diff=lfs merge=lfs -text
